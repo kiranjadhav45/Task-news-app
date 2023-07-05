@@ -16,7 +16,7 @@ const Home = ({ type }) => {
     const fetchdata = async () => {
       const options = {
         method: "GET",
-        url: `https://newsdata.io/api/1/news?apikey=pub_257128ab265ea2344ae5cd0a70b6c4d3850c3&category=${type}&language=hi,en&q=${searchQuery.message}`,
+        url: `https://newsdata.io/api/1/news?apikey=pub_25773a8391910ed834251c83f533f79a63efb&category=${type}&language=hi,en&q=${searchQuery.message}`,
       };
       try {
         const response = await axios.request(options);
