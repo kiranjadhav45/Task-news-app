@@ -41,9 +41,7 @@ const Home = ({ type }) => {
               data[5]?.title &&
               data[5].description &&
               data[5].image_url &&
-              data[5].source_id &&
               data[5].pubDate &&
-              data[5].category &&
               data[5].link && (
                 <MainHeadLine
                   title={data[5]?.title}
