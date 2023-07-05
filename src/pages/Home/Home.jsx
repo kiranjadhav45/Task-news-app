@@ -3,50 +3,82 @@ import MainHeadLine from "../../componets/mainHeadLine/MainHeadLine";
 import NewsCard from "../../componets/newsCards/NewsCard";
 import SideBar from "../../componets/sidebar/SideBar";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import env from "react-dotenv";
+const Home = ({ type }) => {
+  const searchQuery = useSelector((state) => state.searchReducer);
 
-const Home = () => {
+  const [data, setData] = useState("");
+  const [query, setQuery] = useState("");
+
   useEffect(() => {
-    // const fetchdata = async () => {
-    //   const options = {
-    //     method: "GET",
-    //     url:
-    //      `https://newsdata.io/api/1/news?apikey=pub_257128ab265ea2344ae5cd0a70b6c4d3850c3&country=au,us&category=sports`
-    //      ,
-    //   };
-    //   try {
-    //     const response = await axios.request(options);
-    //     console.log(response.data);
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // };
-    // fetchdata();
-  }, []);
+    const fetchdata = async () => {
+      const options = {
+        method: "GET",
+        url: `https://newsdata.io/api/1/news?apikey=pub_257128ab265ea2344ae5cd0a70b6c4d3850c3&category=${type}&language=hi,en&q=${searchQuery.message}`,
+      };
+      try {
+        const response = await axios.request(options);
+        setData(response.data.results);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchdata();
+  }, [type, searchQuery]);
 
   return (
     <div>
-      <div class="container-fluid">
-        <div class="row justify-content-evenly">
-          <div class="col-lg-7 mt-4">
-            <MainHeadLine />
-            <div class="row justify-content-evenly">
-              <NewsCard />
-              <NewsCard />
-              <NewsCard />
-              <NewsCard />
+      <div className="container-fluid">
+        <div className="row justify-content-evenly">
+          <div className="col-lg-7 mt-4">
+            {data && (
+              <MainHeadLine
+                title={data[5]?.title}
+                description={data[5].description}
+                image_url={data[5].image_url}
+                source_id={data[5].source_id}
+                pubDate={data[5].pubDate}
+                category={data[5].category}
+                link={data[5].link}
+              />
+            )}
+            <div className="row justify-content-evenly">
+              {data &&
+                data.map((item) => {
+                  return (
+                    <NewsCard
+                      key={item.title}
+                      title={item.title}
+                      description={item.description}
+                      image_url={item.image_url}
+                      source_id={item.source_id}
+                      pubDate={item.pubDate}
+                      category={item.category}
+                      link={item.link}
+                    />
+                  );
+                })}
             </div>
           </div>
-          <div class="col-lg-3">
-            <h4 class="text-center mt-4">Top Stories</h4>
-            <hr class="text-primary" />
-            <SideBar />
-            <SideBar />
-            <SideBar />
-            <SideBar />
-            <SideBar />
-            <SideBar />
-            <SideBar />
-            <SideBar />
+          <div className="col-lg-3">
+            <h4 className="text-center mt-4">Top Stories</h4>
+            <hr className="text-primary" />
+
+            {data &&
+              data.map((item) => {
+                return (
+                  <SideBar
+                    key={item.title}
+                    title={item.title}
+                    pubDate={item.pubDate}
+                    category={item.category}
+                    source_id={item.source_id}
+                    link={item.link}
+                  />
+                );
+              })}
           </div>
         </div>
       </div>

@@ -1,7 +1,17 @@
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { setMessage } from "../../redux/slices/SearchSlice";
 const Navbar = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const dispatch = useDispatch();
+
+  const handleOnSearch = (e) => {
+    e.preventDefault();
+    dispatch(setMessage(searchQuery));
+  };
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-dark">
@@ -21,34 +31,37 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
               <li className="nav-item ms-4">
-                <Link className="nav-link text-white active " to="/comodity">
-                  COMMODITIES
+                <Link className="nav-link text-white active " to="/business">
+                  Business
                 </Link>
               </li>
 
               <li className="nav-item ms-4">
-                <Link className="nav-link text-white active " to="/">
-                  ECONOMY
+                <Link
+                  className="nav-link text-white active "
+                  to="/entertainment"
+                >
+                  Entertainment
                 </Link>
               </li>
               <li className="nav-item ms-4">
-                <Link className="nav-link text-white active " to="/comodity">
-                  ENERGY SECURITY
+                <Link className="nav-link text-white active " to="/politics">
+                  Politics
                 </Link>
               </li>
               <li className="nav-item ms-4">
-                <Link className="nav-link text-white active " to="/comodity">
-                  ENVIRONMENT
+                <Link className="nav-link text-white active " to="/science">
+                  Science
                 </Link>
               </li>
               <li className="nav-item ms-4">
-                <Link className="nav-link text-white active " to="/comodity">
-                  MILITARY
+                <Link className="nav-link text-white active " to="/sports">
+                  Sports
                 </Link>
               </li>
               <li className="nav-item ms-4">
-                <Link className="nav-link text-white active " to="/comodity">
-                  POLITICS
+                <Link className="nav-link text-white active " to="/technology">
+                  Technology
                 </Link>
               </li>
             </ul>
@@ -58,8 +71,14 @@ const Navbar = () => {
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <button className="btn btn-outline-light" type="submit">
+              <button
+                onClick={(e) => handleOnSearch(e)}
+                className="btn btn-outline-light"
+                type="submit"
+              >
                 Search
               </button>
             </form>

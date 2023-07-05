@@ -1,17 +1,30 @@
 import "./MainHeadLine.css";
 
-const MainHeadLine = () => {
+const MainHeadLine = ({
+  title,
+  description,
+  image_url,
+  source_id,
+  pubDate,
+  category,
+  link,
+}) => {
   return (
     <>
-      <h2>How Western Experts Got the Ukraine War So Wrong</h2>
-      <p>October 13, 2022</p>
-      <img class="img-fluid" src="/images/RussianTankMariupol.jpg" alt="" />
-      <p class=" mt-2">
-        An outdated propensity to equate Ukraine with Russia lies at the heart
-        of a long list of flawed geopolitical analyses leading preceding the
-        Ukraine war.
-      </p>
-      <hr class="text-primary"></hr>
+      {title && <h2>{title}</h2>}
+      {pubDate && <p>{pubDate.slice(0, 10)}</p>}
+      {image_url && (
+        <img
+          className="img-fluid"
+          src={image_url}
+          alt="Russian-Tank-Mariupol"
+        />
+      )}
+      {description && <p className=" mt-2">{description}</p>}
+      <a target="_blank" href={link}>
+        read more
+      </a>
+      <hr className="text-primary"></hr>
     </>
   );
 };

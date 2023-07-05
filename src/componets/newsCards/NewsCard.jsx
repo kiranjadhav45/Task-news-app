@@ -1,20 +1,39 @@
 import "./NewsCard.css";
 
-const NewsCard = () => {
+const NewsCard = ({
+  title,
+  description,
+  image_url,
+  pubDate,
+  category,
+  link,
+}) => {
   return (
-    <div class="col-md-5">
-      <h4 class="mt-4">The Mullahs Have Lost Iran’s Youth</h4>
-      <p>
-        <a class="text-decoration-none" href="#">
-          OPINION{" "}
-        </a>{" "}
-        October 13, 2022
-      </p>
-      <img class="img-fluid" src="/images/headline 1.jpg" />
-      <p class="mt-4">
-        The political cost of decades of placating regime hardliners is now
-        evident in the unrest sweeping Iran’s cities.
-      </p>
+    <div className="col-md-5">
+      {title && <h4 className="mt-4">{title}</h4>}
+      {pubDate && (
+        <p>
+          {category && (
+            <a className="text-decoration-none me-4" href="#">
+              {category[0]}
+            </a>
+          )}
+          {pubDate?.slice(0, 10)}
+        </p>
+      )}
+      {image_url && (
+        <img
+          height={100}
+          className="img-fluid"
+          src={image_url}
+          alt="no image available"
+        />
+      )}
+      {description && <p className="mt-4">{description}</p>}
+      <a target="_blank" href={link}>
+        read more
+      </a>
+      <hr className="text-primary" />
     </div>
   );
 };

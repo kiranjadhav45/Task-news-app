@@ -1,13 +1,18 @@
 import "./SideBar.css";
 
-const SideBar = () => {
+const SideBar = ({ title, pubDate, category, source_id, link }) => {
   return (
     <>
-      <h5>Japan: An Empire Reawakened?</h5>
+      {title && <h5>{title}</h5>}
       <p>
-        <a href="#">BACKGROUNDERS </a> October 13, 2022
+        {source_id && (
+          <a target="_blank" className="me-4" href={link}>
+            {source_id}
+          </a>
+        )}
+        {pubDate && <span>{pubDate?.slice(0, 10)}</span>}
       </p>
-      <hr class="text-primary" />
+      <hr className="text-primary" />
     </>
   );
 };
