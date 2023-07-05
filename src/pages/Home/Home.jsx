@@ -28,22 +28,33 @@ const Home = ({ type }) => {
     fetchdata();
   }, [type, searchQuery]);
 
+  if (!data) {
+    return <h1 className="text-center mt-5">Loading...</h1>;
+  }
+
   return (
     <div>
       <div className="container-fluid">
         <div className="row justify-content-evenly">
           <div className="col-lg-7 mt-4">
-            {data && (
-              <MainHeadLine
-                title={data[5]?.title}
-                description={data[5].description}
-                image_url={data[5].image_url}
-                source_id={data[5].source_id}
-                pubDate={data[5].pubDate}
-                category={data[5].category}
-                link={data[5].link}
-              />
-            )}
+            {data &&
+              data[5]?.title &&
+              data[5].description &&
+              data[5].image_url &&
+              data[5].source_id &&
+              data[5].pubDate &&
+              data[5].category &&
+              data[5].link && (
+                <MainHeadLine
+                  title={data[5]?.title}
+                  description={data[5].description}
+                  image_url={data[5].image_url}
+                  source_id={data[5].source_id}
+                  pubDate={data[5].pubDate}
+                  category={data[5].category}
+                  link={data[5].link}
+                />
+              )}
             <div className="row justify-content-evenly">
               {data &&
                 data.map((item) => {
